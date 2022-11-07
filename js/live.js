@@ -34,7 +34,7 @@ function startup() {
     lastMessageIndex = 0;
 
     // Load player names
-    $.getJSON( 'api/get_players.php', function( data ) {
+    $.getJSON( API_URL + 'api/get_players.php', function( data ) {
         $('#blueatk').html(data['blueatk']);
         $('#bluedef').html(data['bluedef']);
         $('#redatk').html(data['redatk']);
@@ -209,7 +209,7 @@ function endgame() {
             result["results"] = [blueScore, redScore];
             result["start"] = Math.floor(start_time/1000);// time in SECONDS
             result["end"] = Math.floor(end_time/1000);// time in SECONDS
-            var res = $.ajax('api/set_result.php',{ data: JSON.stringify(result),
+            var res = $.ajax(API_URL + 'api/set_result.php',{ data: JSON.stringify(result),
                 contentType : 'application/json', type:'POST', async: false});
             setTimeout(function() {
                 window.location.href="index.html";
