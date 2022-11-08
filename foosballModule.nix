@@ -3,7 +3,7 @@ with lib;
 {
   # Define new options to easily turn on/off the module on any NixOs system and to configure it in a few lines.
   # Read their 'description' field to see what they are useful for.
-  options.services.CWIFoosball = {
+  options.services.CWIFoosballWeb = {
     enable = mkEnableOption "server of foosball's website of CWI.";
     domain = lib.mkOption {
       type = lib.types.str;
@@ -60,7 +60,7 @@ with lib;
   # To get a list of all available options, use https://search.nixos.org/options or the nixpkg/nixos/nix manuals
   config =
     let
-      cfg = config.services.CWIFoosball; # this is long to type, let's define a shorter version
+      cfg = config.services.CWIFoosballWeb; # this is long to type, let's define a shorter version
       usernamePhp = "cwi-foosball-php";
     in
       # Enable the configuration only if the module is enabled.

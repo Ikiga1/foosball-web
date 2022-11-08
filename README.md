@@ -24,20 +24,20 @@ modules = [
 and enable it with like this (you can put this directly in the list of modules, or elsewhere in your configuration):
 ```
 {
-  services.CWIFoosball = {
+  services.CWIFoosballWeb = {
     enable = true;
   };
 }
 ```
 
-Then a server should run on port `80` (this port is automatically opened in the firewall, you can disable this with `services.CWIFoosball.openFirewallPorts = false`.
+Then a server should run on port `80` (this port is automatically opened in the firewall, you can disable this with `services.CWIFoosballWeb.openFirewallPorts = false`.
 
 ## Options
 
 The NixOs module provides a list of options (see `foosballModule.nix` for more details). For instance if you want to use another distant API server (for instance because you don't want to fork the database but you don't have write access to the server to update the UI) and disable the opening of the port 80 in the firewall:
 ```
 {
-  services.CWIFoosball = {
+  services.CWIFoosballWeb = {
     enable = true;
     domainAPI = "https://foosball.cwi.nl";
     openFirewallPorts = false;
@@ -49,7 +49,7 @@ The NixOs module provides a list of options (see `foosballModule.nix` for more d
 You can also change the password of `phpMyAdmin` and the domain of the website:
 ```
 {
-  services.CWIFoosball = {
+  services.CWIFoosballWeb = {
     enable = true;
     domain = "https://foosball.mydomain.nl";
     phpMyAdminPassword = "myPassword";

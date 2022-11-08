@@ -22,7 +22,7 @@
             modules = [
               self.nixosModule.default
               ({ pkgs, lib, config, ... }: {
-                services.CWIFoosball ={
+                services.CWIFoosballWeb ={
                   enable = true;
                   # Warning: will be readable by all users, better to use phpMyAdminPasswordFile instead
                   phpMyAdminPassword = "pleasechangeme";
@@ -43,7 +43,7 @@
             modules = [
               self.nixosModule.default
               ({ pkgs, lib, config, ... }: {
-                services.CWIFoosball = {
+                services.CWIFoosballWeb = {
                   enable = true;
                   domainAPI = "https://foosball.cwi.nl";
                 };
