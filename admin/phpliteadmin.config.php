@@ -10,7 +10,13 @@
 // Please see https://bitbucket.org/phpliteadmin/public/wiki/Configuration for more details
 
 //password to gain access
-$password = 'changeme';
+$password = '';
+if (getenv("PHP_LITE_ADMIN_PASSWORD") !== false) {
+   $password = getenv("PHP_LITE_ADMIN_PASSWORD");
+}
+if (getenv("PHP_LITE_ADMIN_PASSWORD_FILE") !== false) {
+   $password = file(getenv("PHP_LITE_ADMIN_PASSWORD_FILE"), FILE_IGNORE_NEW_LINES)[0];
+}
 
 //directory relative to this file to search for databases (if false, manually list databases in the $databases variable)
 $directory = false;
@@ -21,9 +27,11 @@ $subdirectories = false;
 
 //if the above $directory variable is set to false, you must specify the databases manually in an array as the next variable
 //if any of the databases do not exist as they are referenced by their path, they will be created automatically
+# Folder containing the database. If the STATE_DIRECTORY environment variable is set, use this one.
+$STATE_DIR = getenv("STATE_DIRECTORY") ?: "../db";
 $databases = array(
 	array(
-		'path'=> '../db/foos.db',
+		'path'=> $STATE_DIR . '/foos.db',
 		'name'=> 'Foosball'
 	),
 );

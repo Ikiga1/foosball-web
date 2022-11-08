@@ -4,3 +4,5 @@ db/
 *~undo-tree~
 *#
 .#*
+result
+nixos.qcow2

@@ -50,7 +50,7 @@ function startup() {
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
         modal.find('.modal-title').text('Rating history for ' + pName);
-        $.getJSON( API_URL + 'api/get_history.php?player_id=' + pId, function(data) {
+        $.getJSON( API_URL + '/api/get_history.php?player_id=' + pId, function(data) {
             var chartdata = [[
                 {label: 'Time', id: 'time'},
                 {label: 'Defense rating', id: 'def_rating', type: 'number'},
@@ -83,7 +83,7 @@ function startup() {
         if (name == "") {
             $('#newplayerModal').modal('hide');
         } else {
-            $.getJSON(API_URL + 'api/add_player.php?name=' + encodeURI(name), function(data) {
+            $.getJSON(API_URL + '/api/add_player.php?name=' + encodeURI(name), function(data) {
                 alert(data['result']);
                 window.location.reload(false);
             });
@@ -123,7 +123,7 @@ function load_season_section(season_id) {
     $("#season-selected").text(season_title);
 
     
-    $.getJSON(API_URL + 'api/get_classification.php?season_id=' + season_id, function( data ) {
+    $.getJSON(API_URL + '/api/get_classification.php?season_id=' + season_id, function( data ) {
         // JSON arrays become normal javascript arrays
         // JSON key-value-pairs become javascript objects
         // which can be used with data["key"] or with
@@ -285,7 +285,7 @@ function balance_teams(){
 function set_player(position, player_id) {
     $('#'.concat(position)).val(player_id).trigger('change.select2');
 
-    $.getJSON(API_URL + "api/set_players.php?" + position + "=" + player_id, function (data) {
+    $.getJSON(API_URL + "/api/set_players.php?" + position + "=" + player_id, function (data) {
         if (data['affectedrows'] != 1) {
             console.log("Warning: api/set_players.php?" + position + "=" + player_id + " returned: ");
             console.log(data);
