@@ -75,6 +75,8 @@ with lib;
         ## Configure the web server
         services.nginx = {
           enable = true;
+          # Otherwise it fails at startup (I guess dns are maybe not yet configured?)
+          proxyResolveWhileRunning = true;
           virtualHosts.${cfg.domain} = {
             root = pkgs.cwi-foosball-web.override { domainAPI = if cfg.nginxFakeCORS then "" else cfg.domainAPI; };
             default = cfg.domainDefault; # fallback to this domain
