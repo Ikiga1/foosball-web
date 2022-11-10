@@ -89,7 +89,8 @@
             echo '$ nix build .#nixos-cwi-foosball-web.config.system.build.vm && rm -f nixos.qcow2 && QEMU_NET_OPTS="hostfwd=tcp::8080-:80" ./result/bin/run-nixos-vm'
             echo 'Or:'
             echo '$ my-test-vm'
-            echo 'for short. To test it with the external API, use `my-test-vm-extern` (make sure to enable the vpn)'
+            echo 'for short and go to http://localhost:8080.'
+            echo 'To test it with the external API, use `my-test-vm-extern` (make sure to enable the vpn)'
           '';
         };
       }
@@ -104,7 +105,6 @@
     # Main module to use
     nixosModule.default = {...}: {
       imports = [ ./foosballModule.nix ];
-      nixpkgs.overlays = [ self.overlays.default ];
     };
 
     # NixOs configuration

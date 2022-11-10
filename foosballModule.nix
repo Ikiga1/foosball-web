@@ -65,6 +65,14 @@ with lib;
     in
       # Enable the configuration only if the module is enabled.
       lib.mkIf cfg.enable {
+        ## Add pkgs to the list of packages
+        nixpkgs.overlays = [
+          (final: prev: {
+            # callPackages allows stuff like `website.overrides { domainAPI = "https://foosball.cwi.nl"; }`
+            cwi-foosball-web = final.callPackage ./website.nix {};
+          })
+        ];
+        ## Configure the web server
         services.nginx = {
           enable = true;
           virtualHosts.${cfg.domain} = {
