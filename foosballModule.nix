@@ -75,10 +75,16 @@ with lib;
         ## Configure the web server
         services.nginx = {
           enable = true;
-          # Otherwise it fails at startup (I guess dns are maybe not yet configured?)
-          proxyResolveWhileRunning = true;
+          ### Otherwise it fails at startup (DNS are maybe not yet configured?)
+          ### Unfortunalely if we use the proxyResolveWhileRunning it also fails because we need to explicit the
+          ### list of dns server (stupid nginx) and some of them may be blacklisted. So instead we will just wait
+          ### for the service to be restarted and use a static web page in `share/cwi-foosball-web/index.html`
+          # resolver.addresses = [ "8.8.8.8" "192.16.184.42" ];
+          # proxyResolveWhileRunning = true;
           virtualHosts.${cfg.domain} = {
-            root = pkgs.cwi-foosball-web.override { domainAPI = if cfg.nginxFakeCORS then "" else cfg.domainAPI; };
+            root =
+              "${pkgs.cwi-foosball-web.override
+                { domainAPI = if cfg.nginxFakeCORS then "" else cfg.domainAPI;}}/srv";
             default = cfg.domainDefault; # fallback to this domain
             # Enable php
             locations =

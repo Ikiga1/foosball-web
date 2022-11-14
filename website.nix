@@ -12,8 +12,10 @@ stdenv.mkDerivation {
     substituteInPlace js/config.js --replace 'API_URL = ""' 'API_URL = "${domainAPI}"'
   '';
   installPhase = ''
-    mkdir -p $out
-    cp -r *.html js/ img/ sounds/ css/ $out
+    mkdir -p $out/srv
+    cp -r *.html js/ img/ sounds/ css/ $out/srv/
+    # Waiting page before the server finished loading. See the module source for more details.
+    cp -r share $out/
   '' + lib.optionalString (domainAPI == "") ''
     cp -r admin/ api/ create_database.sql $out
     ## TODO: change the password in phpliteadmin.config.php, ideally outside of the store.

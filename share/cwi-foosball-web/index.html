@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!-- Waiting page before the server finished loading. See the module source for more details. -->
+<html>
+  <head>
+    <title>Loading foosball page</title>
+  </head>
+  <body>
+    <h1>Loading</h1>
+    <p id="message"> We are loading the foosball page.</p>
+    <script type="text/javascript">
+      var baseUrl = "http://localhost";
+      // To avoid CORS we need to use the url of a picture.
+      var imageUrl = baseUrl + "/img/foosball_table.png";
+      function checkImage(imageSrc, good, bad) {
+        console.log('try again ' + imageSrc);
+        var img = new Image();
+        img.onload = good; 
+        img.onerror = bad;
+        img.src = imageSrc;
+      };
+      function check() {
+        checkImage(
+          imageUrl,
+          function(){ window.location.href = baseUrl;},
+          function(){
+            console.log('Failed.');
+            document.getElementById('message').innerHTML =
+              'It seems that the web server is not yet available. ' +
+              'You may just need to wait a few more seconds or try to go ' +
+              'and check yourself at <a href="'+baseUrl+'">' +
+              baseUrl + '</a>.';
+          }
+        )
+      };
+      /* Call the above function every second */
+      var t = setInterval(
+        check,
+        1000);      
+    </script>    
+  </body>
+
+</html>
